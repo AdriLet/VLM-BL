@@ -10,8 +10,8 @@ load('Géométrie/MainF2M.mat');
 
 %% Calculation of potential flow
 i=1;
-for awa=10:30
-clearvars -except awa HeadF2M MainF2M results i
+ for awa=7:25
+ clearvars -except awa HeadF2M MainF2M results i
 
 
 
@@ -36,9 +36,9 @@ Main=SailBoundaryLayer(Main);
 
 PlotSails([Head Main]);
 
-results.Cl(i)=Main.outputs.Cl;
-results.AWA(i)=Main.AWA;
-results.Cdi(i)=Main.outputs.Cdi;
+Cl(i)=Main.outputs.Cl;
+AWA(i)=Main.AWA;
+Cdi(i)=Main.outputs.Cdi;
 
 i=i+1;
 

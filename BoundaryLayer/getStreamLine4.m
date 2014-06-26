@@ -1,6 +1,6 @@
-function CurrentLine= getStreamLine2 (Sail, j, in)
+function CurrentLine= getStreamLine4(Sail, j, in)
 %options
-interMethod='linear';
+interMethod='natural';
 j1=j;
 
 
@@ -136,18 +136,18 @@ V  = (Vx.^2 + Vy.^2 + Vz.^2).^0.5;
 
 j=j1;
   %j=min(find( Vx(:,i)>0  ))+2;
-  pente_etais=(Y(1,1)-Y(1,2)) /  (X(1,1)-X(1,2));
+  pente_etais=(Y(1,1)-Y(1,2)) /  (X(1,1)-X(1,2))-70*pi/180;
 
- i=min( find(  ( (Vy(:,j) -Vy(:,j-1)) ./   (Vx(:,j)-Vx(:,j-1)) < pente_etais ) & (Vx(:,j)>0)  ));
+ i=min( find(  (Vy(:,j)  ./   Vx(:,j) < pente_etais ) & (Vx(:,j)>0)  ));
 
 
   Xfl=zeros(1,4*M-1);
   Yfl=zeros(1,4*M-1);
   Zfl=zeros(1,4*M-1);
   Vfl=zeros(1,4*M-1);
-Xfl(1,1)=X_V(i,j);
-Yfl(1,1)=Y_V(i,j);
-Zfl(1,1)=Z_V(i,j);
+Xfl(1,1)=X_C(i,j);
+Yfl(1,1)=Y_C(i,j);
+Zfl(1,1)=Z_C(i,j);
 Vfl(1,1)=V(i,j);
 %V0=[lambda*Vx(1,i-1)+(1-lambda)*Vx(1,i);  lambda*Vy(1,i-1)+(1-lambda)*Vy(1,i); lambda*Vz(1,i-1)+(1-lambda)*Vz(1,i)];
   V0= [Vx(i,j) ; Vy(i,j) ; Vz(i,j)];
@@ -155,12 +155,12 @@ Vfl(1,1)=V(i,j);
     
     %3.2 delta x
     
-    deltas=3*abs(X_V(3,j)-X_V(2,j));
+    deltas=0.2*abs(X_V(3,j)-X_V(2,j));
     
     %%%%%%
    j=1;
 
-while and(isOnTheShape(Xfl(1,j),Yfl(1,j),Zfl(1,j),Sail,deltas),j<4*M)
+while and(isOnTheShape(Xfl(1,j),Yfl(1,j),Zfl(1,j),Sail,deltas),j<15*M)
     j=j+1;
 
     x= [ Xfl(1,j-1);  Yfl(1,j-1);  Zfl(1,j-1)]+deltas*V0/sqrt(sum(V0.^2));

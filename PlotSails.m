@@ -43,8 +43,62 @@ clf
 hold off
 
 
-print(figure(1),'-dpdf',strcat('AWA=',num2str(Sails(1).AWA),'.pdf'))
-clf
+
+%figure(2)
+%     hold on
+%     for i=1:max(size(Sails))
+%         %mesh(Sails(i).X, Sails(i).Y, Sails(i).Z);
+%     end
+% 
+%     axis 'equal';
+%     axes=caxis;
+%     caxis([axes(1,1) axes(1,2)]);
+%     xlabel('X [m]')
+%     ylabel('Y [m]')
+%     zlabel('Z [m]')
+% %     hidden off
+%     hold off
+%     hold on
+%     
+%     for k=1:max(size(Sails))
+%        
+%         for i=1:max(size(Sails(k).StreamLines.Up))
+%             patch('XData', [nan;Sails(k).StreamLines.Up(i).X(:);nan],...
+%                 'YData', [nan;Sails(k).StreamLines.Up(i).Y(:);nan],...
+%                 'ZData', [nan;Sails(k).StreamLines.Up(i).Z(:);nan],...
+%                 'CData', [nan;Sails(k).StreamLines.Up(i).H(:);nan],...
+%                 'FaceColor', 'interp', ...
+%                 'EdgeColor', 'interp')
+%         end
+%         
+%         for i=1:max(size(Sails(k).StreamLines.Lo))
+%             
+%             
+%             patch('XData', [nan;Sails(k).StreamLines.Lo(i).X(:);nan],...
+%                 'YData', [nan;Sails(k).StreamLines.Lo(i).Y(:);nan],...
+%                 'ZData', [nan;Sails(k).StreamLines.Lo(i).Z(:);nan],...
+%                 'CData', [nan;Sails(k).StreamLines.Lo(i).H(:);nan],...
+%                 'FaceColor', 'interp', ...
+%                 'EdgeColor', 'interp')
+%         end
+%             hold on
+%     for i=1:max(size(Sails))
+%         mesh(Sails(i).X, Sails(i).Y, Sails(i).Z);
+%     end
+% 
+%     axis 'equal';
+%     axes=caxis;
+%     caxis([axes(1,1) axes(1,2)]);
+%     xlabel('X [m]')
+%     ylabel('Y [m]')
+%     zlabel('Z [m]')
+%     hidden off
+%     hold off
+%     hold on
+% %     
+
+ print(figure(1),'-dpdf',strcat('AWA=',num2str(Sails(1).AWA),'.pdf'))
+
 % subplot(1,2,2);
 % % 6.2 dCp
 % %--------

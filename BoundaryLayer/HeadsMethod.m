@@ -1,4 +1,4 @@
-function [ stall, Xstall, Ystall, Zstall] = HeadsMethod( StreamLine )
+function [ stall, Xstall, Ystall, Zstall, Cf, H, theta] = HeadsMethod( StreamLine )
 %It calculates boundary layer according to Head's method, based on Ludwieg-Tillman Cf
 %if stall is detected, stall is true and X,Y,Z contains the point on wich
 %stall apears.
@@ -16,6 +16,9 @@ if N==1
     Xstall=0;
     Ystall=0;
     Zstall=0;
+    Cf=zeros(1,N);
+    H=zeros(1,N);
+    theta=zeros(1,N);
     return
 end
 
@@ -30,7 +33,7 @@ end
 theta=zeros(1,N);
 delta1=zeros(1,N);
 delta=zeros(1,N);
-Cf=zeros(1,N);
+
 
 H=zeros(1,N);
 Cf=zeros(1,N);
@@ -45,26 +48,29 @@ dVdS(1)=0;
 
 dThetadS=0;
 dHdS=0;
+R_theta=Vinf*theta(1)/nu;
 
+    Cf(1)=0.246*10^(-0.678*H(1))*R_theta^(-0.268);
 
 
 for j=2:N
-    H(j)=H(j-1)+dS(j)*dHdS;
+
+    H_star=1.535*(H(j-1)-0.7)^(-2.715)+3.3;
+    CE=0.0306*(H_star-3)^(-0.653);    
+    dThetadS=Cf(j-1)/2-theta(j-1)*(H(j-1)+2)/V(j-1)*dVds(j);
+    dHdS=1/(theta(j-1)*1.535*(H(j-1)-0.7)^(-3.715)*(-2.715))*(CE-theta(j-1)*H_star/V(j-1)*dVds(j)-H_star*dThetadS);
+        H(j)=H(j-1)+dS(j)*dHdS;
     theta(j)=theta(j-1)+dS(j)*dThetadS;
-    H_star=1.535*(H(j)-0.7)^(-2.715)+3.3;
-    CE=0.0306*(H_star-3)^(-0.653);
-    R_theta=Vinf*theta(j)/nu;
+     R_theta=Vinf*theta(j)/nu;
     Cf(j)=0.246*10^(-0.678*H(j))*R_theta^(-0.268);
-    dThetadS=Cf(j)/2-theta(j)*(H(j)+2)/V(j)*dVds(j);
-    dHdS=1/(theta(j)*1.535*(H(j)-0.7)^(-3.715)*(-2.715))*(CE-theta(j)*H_star/V(j)*dVds(j)-H_star*dThetadS);
 end
 
-i=min(find(H>3.35));
+i=min(find(H>2.35));
 if isempty(i)
     stall=false;
-    Xstall=0;
-    Ystall=0;
-    Zstall=0;
+    Xstall=nan;
+    Ystall=nan;
+    Zstall=nan;
 else
     stall=true;
     Xstall=X(i);
@@ -75,5 +81,6 @@ end
 
 
 end
+
 
 

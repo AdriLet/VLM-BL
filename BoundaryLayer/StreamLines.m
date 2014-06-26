@@ -18,7 +18,7 @@ function result=StreamLines(Sails)
 
     for k=1:max(size(Sails));
 
-                parfor j=2:(size(Sails(k).X_V,2)-1);
+               parfor j=2:(size(Sails(k).X_V,2)-1);
                     
 %                     Sails(k).StreamLines.Ex=[ getStreamLine4(Sails(k),j,0) ; Sails(k).StreamLines.Ex ];
 %                     Sails(k).StreamLines.In=[ getStreamLine4(Sails(k),j,1)  ; Sails(k).StreamLines.In ];
@@ -26,13 +26,13 @@ function result=StreamLines(Sails)
 
                             Up(j-1,1)=getStreamLine4(Sails(k),j,0) ;
                            Lo(j-1,1)=getStreamLine4(Sails(k),j,1) ;
-                            Vmean(j-1,1)=getStreamLine4(Sails(k),j , 1/2) ;
+                            %Vmean(j-1,1)=getStreamLine4(Sails(k),j , 1/2) ;
                 end
                 
                 
                      Sails(k).StreamLines.Up=Up;
                     Sails(k).StreamLines.Lo=Lo;
-                    Sails(k).StreamLines.Vmean=Vmean;
+                    %Sails(k).StreamLines.Vmean=Vmean;
                     
                     clearvars Ex  In  Vmean ; 
 

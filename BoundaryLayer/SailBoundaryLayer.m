@@ -30,7 +30,7 @@ M=size(Sail.StreamLines.Up,1);
         
         
       %  [ detach_lam, transition, detach_turb, X_tr, X_det, Cf] =BL_detachment_old(S,V,Vinf);
-        [ detach_turb, Xstall, Ystall, Zstall] =HeadsMethod(Sail.StreamLines.Up(k,1));
+        [ detach_turb, Xstall, Ystall, Zstall,Cf,H,theta] =HeadsMethod(Sail.StreamLines.Up(k,1));
         if detach_turb
             Sail.StreamLines.DetachLine.Up.X(k)=Xstall;
             Sail.StreamLines.DetachLine.Up.Y(k)=Ystall;
@@ -40,8 +40,10 @@ M=size(Sail.StreamLines.Up,1);
             Sail.StreamLines.DetachLine.Up.Y(k)=NaN;
             Sail.StreamLines.DetachLine.Up.Z(k)=NaN;
         end
-                
-                clearvars S X Y Z;
+                Sail.StreamLines.Up(k).H=H;
+                Sail.StreamLines.Up(k).theta=theta;
+                Sail.StreamLines.Up(k).Cf=Cf;
+                clearvars S X Y Z theta H Cf;
     end
     
 %% Intrado
@@ -62,7 +64,7 @@ M=size(Sail.StreamLines.Lo,1);
             S(i)=S(i-1)+dS(i);
         end
       %  [ detach_lam, transition, detach_turb, X_tr, X_det,Cf] =BL_detachment_old(S,V,Vinf);
-          [ detach_turb, Xstall, Ystall, Zstall] =HeadsMethod(Sail.StreamLines.Lo(k,1));
+          [ detach_turb, Xstall, Ystall, Zstall,Cf,H,theta] =HeadsMethod(Sail.StreamLines.Lo(k,1));
         if detach_turb
             Sail.StreamLines.DetachLine.Lo.X(k)=Xstall;
             Sail.StreamLines.DetachLine.Lo.Y(k)=Ystall;
@@ -73,7 +75,10 @@ M=size(Sail.StreamLines.Lo,1);
             Sail.StreamLines.DetachLine.Lo.Z(k)=NaN;   
             
         end
-                        clearvars S X Y Z;
+                Sail.StreamLines.Lo(k).H=H;
+                Sail.StreamLines.Lo(k).theta=theta;
+                Sail.StreamLines.Lo(k).Cf=Cf;
+                clearvars S X Y Z theta H Cf;
     end
     
 

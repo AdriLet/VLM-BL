@@ -31,7 +31,7 @@ function result=run_vlm( Vs, TWSRef, Lambda, AWA,Head,Main)
 % Vs=2;           %[m/s]
 
 rho=1.205;      %[kg/m^3]
-mirror=0;       % Mirror plane on/off
+mirror=1;       % Mirror plane on/off
 Windshear=1;    % WindShear  on/off
 
 AWS= Vs*cos((Lambda+AWA)/180*pi)+(TWSRef^2-(Vs*sin((Lambda+AWA)/180*pi))^2)^0.5;     % Apparent Wind Speed at 10 m above the water [m/s]
